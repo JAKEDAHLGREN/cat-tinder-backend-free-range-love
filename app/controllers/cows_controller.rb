@@ -6,7 +6,11 @@ class CowsController < ApplicationController
   
     def create
         cow = Cow.create(cow_params)
-        render json: cow
+        if cow.valid?
+            render json: cow
+        else
+            render json: cow.errors, status: 422
+        end
     end
   
     def update
