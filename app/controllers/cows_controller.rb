@@ -25,7 +25,11 @@ class CowsController < ApplicationController
   
     def destroy
       cow = Cow.find(params[:id])
-      cow.destroy
+      if cow.destroy
+        render json: cow
+      else
+        render json: cow.errors, status:422
+      end
     end
     
   private
