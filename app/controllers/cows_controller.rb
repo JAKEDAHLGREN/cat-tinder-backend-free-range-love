@@ -14,10 +14,20 @@ class CowsController < ApplicationController
     end
   
     def update
+      cow = Cow.find(params[:id])
+      cow.update(cow_params)
+      if cow.valid?
+        render json: cow
+      else
+        render json: cow.errors, status: 422 
+      end
     end
   
     def destroy
+      cow = Cow.find(params[:id])
+      cow.destroy
     end
+    
   private
   def cow_params
     params.require(:cow).permit(:name, :age, :enjoys, :color, :species, :image)
